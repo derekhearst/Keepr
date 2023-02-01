@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
 	import { signIn, signOut } from '@auth/sveltekit/client';
 	import { page } from '$app/stores';
 </script>
 
+{$page.data.session}
 <h1>SvelteKit Auth Example</h1>
 <p>
 	{#if $page.data.session}
@@ -16,6 +17,6 @@
 		<button on:click={() => signOut()} class="button">Sign out</button>
 	{:else}
 		<span class="notSignedInText">You are not signed in</span>
-		<button on:click={() => signIn('github')}>Sign In with GitHub</button>
+		<button on:click={() => signIn('auth0')}>Sign In with auth0</button>
 	{/if}
 </p>
