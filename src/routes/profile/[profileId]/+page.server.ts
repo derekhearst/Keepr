@@ -1,16 +1,21 @@
-import { prisma } from '$lib/server/prisma'
 import type { PageServerLoad } from './$types.js'
-export const load = (async ({ params }) => {
-	const user = await prisma.user.findUnique({
-		where: {
-			id: params.profileId
-		},
-		include: {
-			keeps: true,
-			vaults: true
-		}
-	})
+import { prisma } from '$lib/prisma'
+export const load = (async ({ params, locals }) => {
+	const session = await locals.getSession()
 	return {
-		user: user
+		profile: await prisma.user.findUnique({
+			where: {
+				id: params.profileId
+			},
+			include: {
+				keeps: true,
+				vaults: {
+					where: {
+						// @ts-expect-error TODO: fix this
+						OR: [{ isPrivate: false }, { userId: session?.user?.id }]
+					}
+				}
+			}
+		})
 	}
 }) satisfies PageServerLoad

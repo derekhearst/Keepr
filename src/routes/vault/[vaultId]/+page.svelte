@@ -1,0 +1,106 @@
+<script lang="ts">
+	import Vault from '$lib/Vault.svelte'
+	import type { PageData } from './$types.js'
+	import { fade } from 'svelte/transition'
+	import axios from 'axios'
+	import Swal from 'sweetalert2'
+	import Keep from '$lib/Keep.svelte'
+
+	export let data: PageData
+	let editModal = false
+
+	async function editVault(e: Event) {
+		try {
+			const formData = {
+				// @ts-ignore
+				name: e.target.name.value,
+				// @ts-ignore
+				img: e.target.img.value,
+				// @ts-ignore
+				isPrivate: e.target.isPrivate.checked,
+				// @ts-ignore
+				description: e.target.description.value
+			}
+			const res = await axios.put('/api/vaults/' + data?.vault?.id, formData)
+			Swal.fire({
+				icon: 'success',
+				title: 'Vault Updated',
+				text: 'Your vault has been updated'
+			})
+			if (data.vault) {
+				data.vault.name = formData.name
+				data.vault.img = formData.img
+				data.vault.isPrivate = formData.isPrivate
+				data.vault.description = formData.description
+
+				let thisVault = data.myVaults.find((v) => v.id == data?.vault?.id)
+				if (thisVault) {
+					thisVault.name = formData.name
+					thisVault.img = formData.img
+					thisVault.isPrivate = formData.isPrivate
+					thisVault.description = formData.description
+				}
+			}
+		} catch (error) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'There was an error updating your vault'
+			})
+		}
+		editModal = false
+	}
+</script>
+
+{#if data.vault}
+	<div class="flex flex-col items-center p-2">
+		<img src={data.vault.img} alt={data.vault.name} class="w-full md:w-1/2 h-60 object-cover rounded-md" />
+		<img src={data.vault.user.image} alt={data.vault.user.image} class="w-32 h-32 object-cover rounded-full -mt-16" />
+		<div class="flex gap-2 items-center">
+			<h1 class="text-4xl">{data.vault.name} by {data.vault.user.name}</h1>
+			{#if data.vault.isPrivate}
+				<i class="mdi mdi-lock text-red-600 text-3xl" />
+			{/if}
+			{#if data.vault.userId == data?.session?.user?.id}
+				<i class="mdi mdi-dots-horizontal text-2xl cursor-pointer" title="Edit Vault" on:click={() => (editModal = true)} on:keydown={() => (editModal = true)} />
+			{/if}
+		</div>
+
+		<div class="columns-2 p-2 md:columns-4">
+			{#each data.vault.keeps as keep (keep.id)}
+				<Keep {keep} />
+			{/each}
+		</div>
+	</div>
+
+	{#if editModal}
+		<div class="fixed w-screen h-screen top-0 z-50 left-0 flex items-center justify-center bg-black/60" transition:fade={{ duration: 100 }} on:keydown={() => (editModal = false)} on:click={() => (editModal = false)}>
+			<div class="flex flex-col gap-2 bg-white p-3" on:click|stopPropagation on:keydown|stopPropagation>
+				<h1 class="text-2xl">Edit Vault "{data.vault.name}"</h1>
+				<form class="flex flex-col gap-2" on:submit|preventDefault={editVault}>
+					<label for="name" class="flex justify-between items-center gap-2">
+						Name
+						<input type="text" name="name" id="name" value={data.vault.name} />
+					</label>
+					<label for="img" class="flex justify-between items-center gap-2">
+						Image
+						<input type="text" name="img" id="img" value={data.vault.img} />
+					</label>
+					<label for="isPrivate" class="flex items-center gap-2">
+						Private
+						<input type="checkbox" name="isPrivate" id="isPrivate" class="" checked={data.vault.isPrivate} />
+					</label>
+					<label for="description" class="flex items-center gap-2">
+						Description
+						<textarea name="description" id="description" class="" value={data.vault.description} />
+					</label>
+
+					<div class="flex items-center justify-between">
+						<button type="button" class="bg-red-400 p-1 px-2 rounded-md" on:click={() => (editModal = false)}>Cancel</button>
+						<button type="submit" class="bg-fuchsia-800/70 p-1 px-2 rounded-md">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	{/if}
+{/if}

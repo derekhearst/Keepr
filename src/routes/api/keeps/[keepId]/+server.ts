@@ -1,8 +1,8 @@
 import type { RequestHandler } from '@sveltejs/kit'
-import { prisma } from '$lib/server/prisma'
+import { prisma } from '$lib/prisma'
 
 export const GET = (async ({ params }) => {
-	prisma.keep.update({
+	await prisma.keep.update({
 		where: {
 			id: params.keepId
 		},
@@ -26,4 +26,21 @@ export const GET = (async ({ params }) => {
 		}
 	})
 	return new Response(JSON.stringify(keep))
+}) satisfies RequestHandler
+
+export const DELETE = (async ({ params, locals }) => {
+	const session = await locals.getSession()
+	if (!session?.user?.id) {
+		return new Response('Unauthorized', { status: 401 })
+	}
+	const { count } = await prisma.keep.deleteMany({
+		where: {
+			id: params.keepId,
+			userId: session.user.id
+		}
+	})
+	if (count === 0) {
+		return new Response('Unauthorized', { status: 401 })
+	}
+	return new Response('Deleted')
 }) satisfies RequestHandler

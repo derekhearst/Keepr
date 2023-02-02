@@ -82,9 +82,11 @@ model Keep {
 }
 
 model Vault {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
+  img         String
+  isPrivate   Boolean
 
   keeps   Keep[]   @relation(fields: [keepIds], references: [id])
   keepIds String[] @db.ObjectId

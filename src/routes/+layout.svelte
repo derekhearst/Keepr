@@ -1,13 +1,15 @@
-<script>
-	import { signIn, signOut } from '@auth/sveltekit/client'
-	import { page } from '$app/stores'
+<script lang="ts">
 	import '../app.postcss'
+	import { signIn, signOut } from '@auth/sveltekit/client'
 	import { browser } from '$app/environment'
+	import { fade } from 'svelte/transition'
 	import axios from 'axios'
-	import { myVaults, myKeeps } from '$lib/stores.js'
-
+	import Swal from 'sweetalert2'
+	import type { PageData } from './$types'
+	import { invalidateAll } from '$app/navigation'
 	let keepModal = false
 	let vaultModal = false
+	export let data: PageData
 
 	$: {
 		if (browser) {
@@ -22,47 +24,82 @@
 		}
 	}
 
-	async function createVault(e) {
-		let res = await axios.post('/api/vaults', {
-			name: e.target.name.value,
-			description: e.target.description.value,
-			img: e.target.img.value,
-			isPrivate: e.target.isPrivate.checked
-		})
-		$myVaults = [...$myVaults, res.data]
+	async function createVault(e: Event) {
+		try {
+			let res = await axios.post('/api/vaults', {
+				// @ts-ignore these will exist but i don't want to write out the type
+				name: e.target.name.value,
+				// @ts-ignore these will exist but i don't want to write out the type
+				description: e.target.description.value,
+				// @ts-ignore these will exist but i don't want to write out the type
+				img: e.target.img.value,
+				// @ts-ignore these will exist but i don't want to write out the type
+				isPrivate: e.target.isPrivate.checked
+			})
+			data.myVaults = [...data.myVaults, res.data]
+			Swal.fire({
+				icon: 'success',
+				title: 'Vault created'
+			})
+		} catch (e) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Failed to create vault'
+			})
+		}
+		vaultModal = false
+		await invalidateAll()
 	}
 
-	async function createKeep(e) {
-		let res = await axios.post('/api/keeps', {
-			name: e.target.name.value,
-			description: e.target.description.value,
-			img: e.target.img.value
-		})
-		console.log(res.data)
-		$page.data.keeps = [...$page.data.keeps, res.data]
+	async function createKeep(e: Event) {
+		try {
+			let res = await axios.post('/api/keeps', {
+				// @ts-ignore these will exist but i don't want to write out the type
+				name: e.target.name.value,
+				// @ts-ignore these will exist but i don't want to write out the type
+				description: e.target.description.value,
+				// @ts-ignore these will exist but i don't want to write out the type
+				img: e.target.img.value
+			})
+			await invalidateAll()
+			Swal.fire({
+				icon: 'success',
+				title: 'Keep created'
+			})
+		} catch (e) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Failed to create keep'
+			})
+		}
+		keepModal = false
 	}
 </script>
 
-<header class="bg-neutral-200 flex items-center justify-between px-3">
-	<div class="flex w-1/4 gap-2">
-		<a href="/" class="bg-fuchsia-700/50 p-1 px-2 rounded-md">Home</a>
+<header class="bg-neutral-200 drop-shadow-md relative	z-10 flex items-center justify-between px-3 flex-wrap">
+	<div class="flex w-1/4 gap-2 flex-wrap items-center justify-center">
+		<a href="/" class="bg-fuchsia-700/50 p-1 px-3 rounded-md">Home</a>
 		<button class="underline-offset-2 text-fuchsia-800 p-1 px-2 underline rounded-md" on:keydown={() => (keepModal = true)} on:click={() => (keepModal = true)}>Create Keep</button>
 		<button class="underline-offset-2 text-fuchsia-800 p-1 px-2 underline rounded-md" on:keydown={() => (vaultModal = true)} on:click={() => (vaultModal = true)}> Create Vault</button>
 	</div>
 	<div class="flex justify-center w-1/2">
-		<img src="/Keeprlogo.png" class=" h-20 p-1" alt="logo" />
+		<a href="/">
+			<img src="/Keeprlogo.png" class=" h-20 p-1" alt="logo" />
+		</a>
 	</div>
-	<div class="flex items-center justify-end w-1/4 gap-2">
-		{#if $page.data.session}
+	<div class="flex items-center justify-end w-1/4 gap-2 flex-wrap">
+		{#if data?.session?.user}
 			<button class="bg-fuchsia-700/50 border-zinc-900 p-1 px-2 rounded-lg" on:click={() => signOut()}>Log Out</button>
-			<img src={$page.data.session.user?.image} alt="avatar" class="w-20 h-20 p-1 rounded-full" />
+			<a href="/account">
+				<img src={data.session.user.image} alt="avatar" class="w-20 h-20 p-1 rounded-full" />
+			</a>
 		{:else}
 			<button on:click={() => signIn('auth0')} class="bg-fuchsia-700/50 border-zinc-900 p-1 px-2 rounded-lg">Sign In</button>
 		{/if}
 	</div>
 
 	{#if keepModal}
-		<div class="bg-black/50 fixed top-0 left-0 flex items-center justify-center w-screen h-screen" on:keydown={() => (keepModal = false)} on:click|stopPropagation={() => (keepModal = false)}>
+		<div class="bg-black/50 fixed  z-50 top-0 left-0 flex items-center justify-center w-screen h-screen" on:keydown={() => (keepModal = false)} on:click|stopPropagation={() => (keepModal = false)} transition:fade={{ duration: 100 }}>
 			<div class="flex flex-col gap-1 p-4 bg-white rounded-md" on:keydown|stopPropagation on:click|stopPropagation>
 				<h1 class="mb-3 text-3xl text-center">Create Keep</h1>
 				<form class="flex flex-col gap-3" on:submit|preventDefault={createKeep}>
@@ -87,13 +124,13 @@
 		</div>
 	{/if}
 	{#if vaultModal}
-		<div class="bg-black/50 fixed top-0 left-0 flex items-center justify-center w-screen h-screen" on:keydown={() => (vaultModal = false)} on:click|stopPropagation={() => (vaultModal = false)}>
-			<div class="flex flex-col gap-1 p-4 bg-white rounded-md" on:keydown|stopPropagation on:click|stopPropagation>
+		<div class="bg-black/50 fixed z-50 top-0 left-0 flex items-center justify-center w-screen h-screen" on:keydown={() => (vaultModal = false)} on:click|stopPropagation={() => (vaultModal = false)} transition:fade={{ duration: 100 }}>
+			<div class="flex flex-col gap-1 z-50 p-4 bg-white rounded-md" on:keydown|stopPropagation on:click|stopPropagation>
 				<h1 class="mb-3 text-3xl text-center">Create Vault</h1>
 				<form class="flex flex-col gap-3" on:submit|preventDefault={createVault}>
-					<label for="Name" class="flex items-center justify-between gap-3">
+					<label for="name" class="flex items-center justify-between gap-3">
 						Name
-						<input type="text" id="Name" required name="Name" placeholder="Vault Name" />
+						<input type="text" id="name" required name="name" placeholder="Vault Name" />
 					</label>
 					<label for="description" class="flex items-center justify-between gap-3">
 						Description
@@ -108,7 +145,7 @@
 						<input type="checkbox" class="ml-8" id="isPrivate" name="isPrivate" />
 					</label>
 					<div class="flex items-center justify-between">
-						<button class="bg-red-700/50 border-zinc-900 w-2/5 p-1 px-2 rounded-lg" type="button" on:click={() => (keepModal = false)}>Cancel</button>
+						<button class="bg-red-700/50 border-zinc-900 w-2/5 p-1 px-2 rounded-lg" type="button" on:click={() => (vaultModal = false)}>Cancel</button>
 						<button class="bg-fuchsia-700/50 border-zinc-900 w-2/5 p-1 px-2 rounded-lg" type="submit">Create</button>
 					</div>
 				</form>
@@ -116,4 +153,5 @@
 		</div>
 	{/if}
 </header>
+
 <slot />
