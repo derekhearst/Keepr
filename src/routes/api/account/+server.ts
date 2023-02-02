@@ -1,5 +1,5 @@
-import { prisma } from '$lib/server/prisma'
 import type { RequestHandler } from '@sveltejs/kit'
+import { prisma } from '$lib/server/prisma'
 export const GET = (async ({ locals }) => {
 	const user = await locals.getSession()
 	if (!user) {

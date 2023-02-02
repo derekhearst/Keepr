@@ -70,7 +70,7 @@ model Keep {
   name        String
   description String
   img         String
-  views       Int
+  views       Int?   @default(1)
 
   vaults   Vault[]  @relation(fields: [vaultIds], references: [id])
   vaultIds String[] @db.ObjectId
