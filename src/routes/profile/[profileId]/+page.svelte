@@ -40,7 +40,7 @@
 	{/if}
 
 	{#if data.profile.keeps.length > 0}
-		<div class="flex flex-wrap gap-4 p-3">
+		<div class="columns-2 md:columns-4 gap-4 p-3">
 			{#each data.keeps as keep (keep.id)}
 				<Keep {keep} />
 			{/each}

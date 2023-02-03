@@ -1,10 +1,10 @@
 import type { PageServerLoad } from './$types.js'
 import { prisma } from '$lib/prisma.js'
-import { error, type Actions } from '@sveltejs/kit'
+import { error, redirect, type Actions } from '@sveltejs/kit'
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.getSession()
 	if (!session?.user?.id) {
-		throw error(403, 'You must be logged in to view this page')
+		throw redirect(303, 'auth/signin')
 	}
 	return {
 		user: await prisma.user.findUnique({
@@ -33,7 +33,7 @@ export const actions: Actions = {
 	default: async ({ locals, request }) => {
 		const session = await locals.getSession()
 		if (!session?.user?.id) {
-			throw error(403, 'You must be logged in to update your account')
+			throw redirect(303, '/auth/signin')
 		}
 		const formData = await request.formData()
 		if (!formData) throw error(400, 'No form data found')
