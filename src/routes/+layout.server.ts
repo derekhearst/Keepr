@@ -18,8 +18,7 @@ export const load = (async (event) => {
 		}),
 		myVaults: await prisma.vault.findMany({
 			where: {
-				// @ts-expect-error its okay to not have a proper id
-				userId: session?.user?.id
+				userId: session?.user?.id as string | undefined
 			},
 			include: {
 				user: true

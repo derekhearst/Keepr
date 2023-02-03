@@ -12,13 +12,13 @@
 	async function editVault(e: Event) {
 		try {
 			const formData = {
-				// @ts-ignore
+				// @ts-ignore form data
 				name: e.target.name.value,
-				// @ts-ignore
+				// @ts-ignore form data
 				img: e.target.img.value,
-				// @ts-ignore
+				// @ts-ignore form data
 				isPrivate: e.target.isPrivate.checked,
-				// @ts-ignore
+				// @ts-ignore form data
 				description: e.target.description.value
 			}
 			const res = await axios.put('/api/vaults/' + data?.vault?.id, formData)
@@ -107,4 +107,8 @@
 			</div>
 		</div>
 	{/if}
+{:else}
+	<div class="flex flex-col items-center p-2">
+		<h1 class="text-4xl">Vault Not Found</h1>
+	</div>
 {/if}

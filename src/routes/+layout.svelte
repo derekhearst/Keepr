@@ -27,13 +27,13 @@
 	async function createVault(e: Event) {
 		try {
 			let res = await axios.post('/api/vaults', {
-				// @ts-ignore these will exist but i don't want to write out the type
+				// @ts-ignore form data
 				name: e.target.name.value,
-				// @ts-ignore these will exist but i don't want to write out the type
+				// @ts-ignore form data
 				description: e.target.description.value,
-				// @ts-ignore these will exist but i don't want to write out the type
+				// @ts-ignore form data
 				img: e.target.img.value,
-				// @ts-ignore these will exist but i don't want to write out the type
+				// @ts-ignore form data
 				isPrivate: e.target.isPrivate.checked
 			})
 			data.myVaults = [...data.myVaults, res.data]
@@ -54,11 +54,11 @@
 	async function createKeep(e: Event) {
 		try {
 			let res = await axios.post('/api/keeps', {
-				// @ts-ignore these will exist but i don't want to write out the type
+				// @ts-ignore form data
 				name: e.target.name.value,
-				// @ts-ignore these will exist but i don't want to write out the type
+				// @ts-ignore form data
 				description: e.target.description.value,
-				// @ts-ignore these will exist but i don't want to write out the type
+				// @ts-ignore form data
 				img: e.target.img.value
 			})
 			await invalidateAll()

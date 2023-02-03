@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types.js'
 import { prisma } from '$lib/prisma'
-import type { Vault } from '@prisma/client'
+import { error } from '@sveltejs/kit'
 
 export const load = (async ({ params, locals }) => {
 	const session = await locals.getSession()
@@ -23,8 +23,8 @@ export const load = (async ({ params, locals }) => {
 		}
 	})
 
-	if (!vault) return { status: 404 }
-	if (vault.isPrivate && vault.userId != session?.user?.id) return { status: 403 }
+	if (!vault) throw error(404, 'Vault not found')
+	if (vault.isPrivate && vault.userId != session?.user?.id) throw error(403, 'You do not have access to this vault')
 
 	return {
 		vault: vault
