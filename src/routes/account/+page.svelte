@@ -9,6 +9,10 @@
 	let modalOpen = false
 </script>
 
+<svelte:head>
+	<title>Keepr Account</title>
+</svelte:head>
+
 {#if data?.session?.user && data.myKeeps && data.myVaults}
 	<div class="flex flex-col items-center pt-4">
 		{#if data?.user?.coverImg}

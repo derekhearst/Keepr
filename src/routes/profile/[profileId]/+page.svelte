@@ -7,6 +7,10 @@
 	export let data: PageData
 </script>
 
+<svelte:head>
+	<title>Keepr {data.profile?.name}</title>
+</svelte:head>
+
 {#if data.profile}
 	<div class="flex flex-col items-center pt-4">
 		{#if data.profile.coverImg}

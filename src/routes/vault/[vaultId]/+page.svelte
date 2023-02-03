@@ -52,6 +52,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Keepr {data.vault?.name}</title>
+</svelte:head>
+
 {#if data.vault}
 	<div class="flex flex-col items-center p-2">
 		<img src={data.vault.img} alt={data.vault.name} class="w-full md:w-1/2 h-60 object-cover rounded-md" />
