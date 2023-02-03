@@ -77,7 +77,7 @@
 </script>
 
 <header class="bg-neutral-200 drop-shadow-md relative	z-10 flex items-center justify-between px-3 flex-wrap">
-	<div class="flex w-1/4 gap-2 flex-wrap items-center justify-center">
+	<div class="flex w-1/4 gap-2 flex-wrap items-center text-xl  justify-center md:justify-start p-2 md:p-0">
 		<a href="/" class="bg-fuchsia-700/50 p-1 px-3 rounded-md">Home</a>
 		<button class="underline-offset-2 text-fuchsia-800 p-1 px-2 underline rounded-md" on:keydown={() => (keepModal = true)} on:click={() => (keepModal = true)}>Create Keep</button>
 		<button class="underline-offset-2 text-fuchsia-800 p-1 px-2 underline rounded-md" on:keydown={() => (vaultModal = true)} on:click={() => (vaultModal = true)}> Create Vault</button>
