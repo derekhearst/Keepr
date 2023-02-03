@@ -18,7 +18,7 @@
 	}
 
 	async function addKeep(e: Event) {
-		// @ts-ignore
+		// @ts-ignore form data
 		let vaultId = e.target.vaultId.value
 		try {
 			const res = await axios.post('/api/vaultkeeps', { keepId: keep.id, vaultId: vaultId })
