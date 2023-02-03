@@ -1,38 +1,23 @@
-# create-svelte
+# Keepr - A Pinterest Clone
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+[Keepr](https://keepr.derekhearst.com)
 
-## Creating a project
+## Description
 
-If you're seeing this, you've probably already done this step. Congrats!
+Keepr is an experimental Pinterest clone build with SvelteKit, TailwindCSS, Prisma, MongoDB, Prisma Data Proxy, and deployed serverless on Cloudflare Pages
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- [x] User Authentication
+- [x] User Profiles
+- [x] User Boards
+- [x] User Pins
 
-## Developing
+## Getting Started
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- Clone the repository
+- Copy `.env.example` to `.env` and update the values
+- Run `npm install` to install dependencies
+- Run `npm run setup` to setup the database
+- Run `npm run dev` to start the development server
+- Run `npm run build` to build the application for production
