@@ -6,16 +6,7 @@ export const load = (async (event) => {
 
 	return {
 		session: session,
-		keeps: prisma.keep.findMany({
-			include: {
-				user: true,
-				_count: {
-					select: {
-						vaults: true
-					}
-				}
-			}
-		}),
+
 		myVaults: prisma.vault.findMany({
 			where: {
 				userId: session?.user?.id as string | undefined

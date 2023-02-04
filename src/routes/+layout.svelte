@@ -154,4 +154,6 @@
 	{/if}
 </header>
 
-<slot />
+<slot>
+	<h1 class="text-4xl text-center">Loading data, please wait...</h1>
+</slot>

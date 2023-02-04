@@ -41,7 +41,7 @@
 
 	{#if data.profile.keeps.length > 0}
 		<div class="columns-2 md:columns-4 gap-4 p-3">
-			{#each data.keeps as keep (keep.id)}
+			{#each data.profile.keeps as keep (keep.id)}
 				<Keep {keep} />
 			{/each}
 		</div>
