@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { KeepWithUserAndCount, VaultWithKeeps } from './types.js'
+	import type { KeepWithUserAndCount } from './types.js'
 	import { fade } from 'svelte/transition'
 	import axios from 'axios'
 	import { page } from '$app/stores'
 	import Swal from 'sweetalert2'
-	import { invalidate, invalidateAll } from '$app/navigation'
+	import { invalidateAll } from '$app/navigation'
 	export let keep: KeepWithUserAndCount
 	let modalOpen = false
 
@@ -58,13 +58,13 @@
 			const res = await axios.delete(`/api/vaultkeeps/${$page.params.vaultId}`, { data: { keepId: keep.id } })
 			Swal.fire({
 				icon: 'success',
-				title: 'Keep deleted from vault'
+				title: 'Keep removed from vault'
 			})
 			invalidateAll()
 		} catch (error) {
 			Swal.fire({
 				icon: 'error',
-				title: 'Failed to delete keep from vault'
+				title: 'Failed to remove keep from vault'
 			})
 		}
 	}
@@ -87,7 +87,7 @@
 					<p class="p-1  flex-grow ">{keep.description}</p>
 					<div class="flex items-center justify-between gap-2">
 						<div>
-							{#if $page.data.myVaults.length > 0 && $page.data.session}
+							{#if $page.data.myVaults.length > 0 && $page.data.session && !keep.vaultIds.includes($page.data.vault?.id)}
 								<form on:submit|preventDefault={addKeep} class="flex items-center gap-2">
 									<select name="vaultId">
 										{#each $page.data.myVaults as vault (vault.id)}
@@ -99,7 +99,7 @@
 							{/if}
 						</div>
 						<div class="flex gap-2 items-center">
-							{#if $page.route.id?.includes('/vault') && $page.data?.session?.user?.id == keep.userId}
+							{#if $page.route.id?.includes('/vault') && $page.data?.session?.user?.id == $page.data?.vault?.userId}
 								<button class="bg-red-800/50 p-1 px-2 rounded-md" on:click={() => removeKeep()}>Remove Keep</button>
 							{/if}
 							{#if $page.data?.session?.user?.id === keep.userId}
