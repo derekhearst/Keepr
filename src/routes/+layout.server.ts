@@ -6,7 +6,7 @@ export const load = (async (event) => {
 
 	return {
 		session: session,
-		keeps: await prisma.keep.findMany({
+		keeps: prisma.keep.findMany({
 			include: {
 				user: true,
 				_count: {
@@ -16,7 +16,7 @@ export const load = (async (event) => {
 				}
 			}
 		}),
-		myVaults: await prisma.vault.findMany({
+		myVaults: prisma.vault.findMany({
 			where: {
 				userId: session?.user?.id as string | undefined
 			},

@@ -7,13 +7,13 @@ export const load: PageServerLoad = async ({ locals }) => {
 		throw redirect(303, 'auth/signin')
 	}
 	return {
-		user: await prisma.user.findUnique({
+		user: prisma.user.findUnique({
 			where: {
 				id: session.user.id
 			}
 		}),
 
-		myKeeps: await prisma.keep.findMany({
+		myKeeps: prisma.keep.findMany({
 			where: {
 				userId: session.user.id
 			},
