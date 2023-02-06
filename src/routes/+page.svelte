@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types'
 	import Keep from '$lib/Keep.svelte'
+	import { navigating } from '$app/stores'
 	export let data: PageData
 </script>
 

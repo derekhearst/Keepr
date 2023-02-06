@@ -2,6 +2,7 @@
 	import '../app.postcss'
 	import { signIn, signOut } from '@auth/sveltekit/client'
 	import { browser } from '$app/environment'
+	import { navigating } from '$app/stores'
 	import { fade } from 'svelte/transition'
 	import axios from 'axios'
 	import Swal from 'sweetalert2'
@@ -154,6 +155,12 @@
 	{/if}
 </header>
 
-<slot>
-	<h1 class="text-4xl text-center">Loading data, please wait...</h1>
-</slot>
+{#if $navigating}
+	<div class="animate-spin origin-center text-center">
+		<i class="mdi mdi-loading text-8xl  text-black" />
+	</div>
+{:else}
+	<slot>
+		<h1 class="text-4xl text-center">Loading data, please wait...</h1>
+	</slot>
+{/if}
