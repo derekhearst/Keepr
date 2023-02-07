@@ -58,15 +58,15 @@
 
 {#if data.vault}
 	<div class="flex flex-col items-center p-2">
-		<img src={data.vault.img} alt={data.vault.name} class="w-full md:w-1/2 h-60 object-cover rounded-md" />
-		<img src={data.vault.user.image} alt={data.vault.user.image} class="w-32 h-32 object-cover rounded-full -mt-16" />
-		<div class="flex gap-2 items-center">
+		<img src={data.vault.img} alt={data.vault.name} class="h-60 w-full rounded-md object-cover md:w-1/2" />
+		<img src={data.vault.user.image} alt={data.vault.user.image} class="-mt-16 h-32 w-32 rounded-full object-cover" />
+		<div class="flex items-center gap-2">
 			<h1 class="text-4xl">{data.vault.name} by {data.vault.user.name}</h1>
 			{#if data.vault.isPrivate}
-				<i class="mdi mdi-lock text-red-600 text-3xl" />
+				<i class="mdi mdi-lock text-3xl text-red-600" />
 			{/if}
 			{#if data.vault.userId == data?.session?.user?.id}
-				<i class="mdi mdi-dots-horizontal text-2xl cursor-pointer" title="Edit Vault" on:click={() => (editModal = true)} on:keydown={() => (editModal = true)} />
+				<i class="mdi mdi-dots-horizontal cursor-pointer text-2xl" title="Edit Vault" on:click={() => (editModal = true)} on:keydown={() => (editModal = true)} />
 			{/if}
 		</div>
 
@@ -78,15 +78,15 @@
 	</div>
 
 	{#if editModal}
-		<div class="fixed w-screen h-screen top-0 z-50 left-0 flex items-center justify-center bg-black/60" transition:fade={{ duration: 100 }} on:keydown={() => (editModal = false)} on:click={() => (editModal = false)}>
+		<div class="fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-black/60" transition:fade={{ duration: 100 }} on:keydown={() => (editModal = false)} on:click={() => (editModal = false)}>
 			<div class="flex flex-col gap-2 bg-white p-3" on:click|stopPropagation on:keydown|stopPropagation>
 				<h1 class="text-2xl">Edit Vault "{data.vault.name}"</h1>
 				<form class="flex flex-col gap-2" on:submit|preventDefault={editVault}>
-					<label for="name" class="flex justify-between items-center gap-2">
+					<label for="name" class="flex items-center justify-between gap-2">
 						Name
 						<input type="text" name="name" id="name" value={data.vault.name} />
 					</label>
-					<label for="img" class="flex justify-between items-center gap-2">
+					<label for="img" class="flex items-center justify-between gap-2">
 						Image
 						<input type="text" name="img" id="img" value={data.vault.img} />
 					</label>
@@ -100,8 +100,8 @@
 					</label>
 
 					<div class="flex items-center justify-between">
-						<button type="button" class="bg-red-400 p-1 px-2 rounded-md" on:click={() => (editModal = false)}>Cancel</button>
-						<button type="submit" class="bg-fuchsia-800/70 p-1 px-2 rounded-md">Save</button>
+						<button type="button" class="rounded-md bg-red-400 p-1 px-2" on:click={() => (editModal = false)}>Cancel</button>
+						<button type="submit" class="rounded-md bg-fuchsia-800/70 p-1 px-2">Save</button>
 					</div>
 				</form>
 			</div>

@@ -24,7 +24,7 @@
 	</div>
 
 	{#if data.profile.vaults.length > 0}
-		<h1 class="text-4xl p-3">Vaults</h1>
+		<h1 class="p-3 text-4xl">Vaults</h1>
 	{/if}
 
 	{#if data.profile.vaults.length > 0}
@@ -36,11 +36,11 @@
 	{/if}
 
 	{#if data.profile.keeps.length > 0}
-		<h1 class="text-4xl p-3">Keeps</h1>
+		<h1 class="p-3 text-4xl">Keeps</h1>
 	{/if}
 
 	{#if data.profile.keeps.length > 0}
-		<div class="columns-2 md:columns-4 gap-4 p-3">
+		<div class="columns-2 gap-4 p-3 md:columns-4">
 			{#each data.profile.keeps as keep (keep.id)}
 				<Keep {keep} />
 			{/each}
