@@ -80,7 +80,7 @@
 	{#if modalOpen}
 		<div class="fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-black/60 px-10" on:click={() => (modalOpen = false)} on:keydown={() => (modalOpen = false)} transition:fade={{ duration: 100 }}>
 			<div on:click|stopPropagation on:keydown|stopPropagation class="flex flex-col  rounded-r-md bg-white md:flex-row">
-				<img src={keep.img} class="h-20 w-full  object-cover md:h-full md:w-1/2" alt={keep.name} />
+				<img src={keep.img} class="h-20 max-h-96 w-full  object-cover md:h-full md:w-1/2" alt={keep.name} />
 				<div class="flex flex-grow flex-col gap-1 p-2">
 					<h2 class="text-center"><i class="mdi mdi-eye" /> {keep.views} | <i class="mdi mdi-share" />{keep._count.vaults}</h2>
 					<h1 class="p-1 text-xl">{keep.name}</h1>
