@@ -16,7 +16,7 @@
 {#if data?.session?.user && data.myKeeps && data.myVaults}
 	<div class="flex flex-col items-center pt-4">
 		{#if data?.user?.coverImg}
-			<img src={data.user.coverImg} alt={data.user.name} class="h-60 w-96 object-cover" />
+			<img src={data.user.coverImg} alt={data.user.name} class="h-96" />
 			<img src={data.user.image} alt={data.user.image} class="-mt-14 rounded-full" />
 		{:else}
 			<img src={data?.user?.image} alt={data?.user?.image} />

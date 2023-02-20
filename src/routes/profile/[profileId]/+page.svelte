@@ -14,7 +14,7 @@
 {#if data.profile}
 	<div class="flex flex-col items-center pt-4">
 		{#if data.profile.coverImg}
-			<img src={data.profile.coverImg} alt={data.profile.name} />
+			<img src={data.profile.coverImg} class="h-96" alt={data.profile.name} />
 			<img src={data.profile.image} alt={data.profile.image} class="-mt-16" />
 		{:else}
 			<img src={data.profile.image} alt={data.profile.image} />

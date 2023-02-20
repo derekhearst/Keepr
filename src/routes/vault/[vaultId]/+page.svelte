@@ -58,7 +58,7 @@
 
 {#if data.vault}
 	<div class="flex flex-col items-center p-2">
-		<img src={data.vault.img} alt={data.vault.name} class="h-60 w-full rounded-md object-cover md:w-1/2" />
+		<img src={data.vault.img} alt={data.vault.name} class="h-96 rounded-md object-cover md:w-1/2" />
 		<img src={data.vault.user.image} alt={data.vault.user.image} class="-mt-16 h-32 w-32 rounded-full object-cover" />
 		<div class="flex items-center gap-2">
 			<h1 class="text-4xl">{data.vault.name} by {data.vault.user.name}</h1>
