@@ -35,7 +35,7 @@
 		{/each}
 	</div>
 	<h1 class="text-center text-5xl">Keeps</h1>
-	<div class="columns-2 gap-4 p-3 md:columns-4">
+	<div class="columns-2 gap-8 p-3 md:columns-4">
 		{#each data.myKeeps as keep (keep.id)}
 			<Keep {keep} />
 		{/each}

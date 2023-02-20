@@ -71,10 +71,10 @@
 </script>
 
 {#if keep}
-	<div class="relative z-0 mb-4  max-w-md flex-shrink flex-grow cursor-pointer drop-shadow-lg" on:keydown={() => (modalOpen = true)} on:click={() => (modalOpen = true)}>
-		<img src={keep.img} class="z-0 w-full rounded-md object-cover text-xl brightness-75" alt={keep.name} />
+	<div class="relative z-0 mb-4 w-full flex-shrink flex-grow cursor-pointer drop-shadow-lg" on:keydown={() => (modalOpen = true)} on:click={() => (modalOpen = true)}>
+		<img src={keep.img} class="z-0 w-full rounded-md object-cover text-xl brightness-75 drop-shadow-lg" alt={keep.name} />
 		<h1 class="absolute top-0 left-0 z-0 p-1 text-5xl text-white shadow-black drop-shadow-2xl">{keep.name}</h1>
-		<img src={keep.user.image} class="absolute bottom-0 right-0 z-0 m-1 h-20 w-20 rounded-full border-2 border-white" title={keep.user.name} alt={keep.user.name} />
+		<img src={keep.user.image} class="absolute bottom-0 right-0 z-0 m-1 h-20 w-20  rounded-full border-2 border-white drop-shadow-lg" title={keep.user.name} alt={keep.user.name} />
 	</div>
 
 	{#if modalOpen}

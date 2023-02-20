@@ -70,7 +70,7 @@
 			{/if}
 		</div>
 
-		<div class="columns-2 p-2 md:columns-4">
+		<div class="columns-2 gap-8 p-2 md:columns-4">
 			{#each data.vault.keeps as keep (keep.id)}
 				<Keep {keep} />
 			{/each}
