@@ -80,12 +80,12 @@
 <header class="relative z-10 flex flex-wrap items-center justify-between bg-neutral-200 px-3 drop-shadow-md">
 	<div class="flex w-1/4 flex-wrap items-center justify-center gap-2 p-2 text-xl md:justify-start md:p-0">
 		<a href="/" class="rounded-md bg-fuchsia-700/50 p-1 px-3">Home</a>
-		<button class="rounded-md p-1 px-2 text-fuchsia-800 underline underline-offset-2" on:keydown={() => (keepModal = true)} on:click={() => (keepModal = true)}>Create Keep</button>
+		<button class="rounded-md p-1 px-2 text-fuchsia-800 underline underline-offset-2" on:keydown={() => (keepModal = true)} on:click={() => (keepModal = true)}>Create Post</button>
 		<button class="rounded-md p-1 px-2 text-fuchsia-800 underline underline-offset-2" on:keydown={() => (vaultModal = true)} on:click={() => (vaultModal = true)}> Create Vault</button>
 	</div>
 	<div class="flex w-1/2 justify-center">
 		<a href="/">
-			<img src="/Keeprlogo.png" class=" h-20 p-1" alt="logo" />
+			<h1 class="text-4xl">Postr</h1>
 		</a>
 	</div>
 	<div class="flex w-1/4 flex-wrap items-center justify-end gap-2">

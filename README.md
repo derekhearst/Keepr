@@ -1,10 +1,10 @@
-# Keepr - A Pinterest Clone
+# Postr - A Pinterest Clone
 
-[Keepr](https://keepr.derekhearst.com)
+[Postr](https://keepr.derekhearst.com)
 
 ## Description
 
-Keepr is an experimental Pinterest clone build with SvelteKit, TailwindCSS, Prisma, MongoDB, Prisma Data Proxy, and deployed serverless on Cloudflare Pages
+Postr is an experimental Pinterest clone build with SvelteKit, TailwindCSS, Prisma, MongoDB, Prisma Data Proxy, and deployed serverless on Cloudflare Pages
 
 ## Features
 

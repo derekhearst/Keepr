@@ -3,11 +3,10 @@
 	import Keep from '$lib/Keep.svelte'
 	import { navigating } from '$app/stores'
 	export let data: PageData
-
 </script>
 
 <svelte:head>
-	<title>Keepr</title>
+	<title>Postr</title>
 </svelte:head>
 
 <div class="columns-2 gap-8 p-3 md:columns-4">

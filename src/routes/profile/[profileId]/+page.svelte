@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>Keepr {data.profile?.name}</title>
+	<title>Postr {data.profile?.name}</title>
 </svelte:head>
 
 {#if data.profile}
