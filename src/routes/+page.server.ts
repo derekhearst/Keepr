@@ -11,7 +11,8 @@ export const load = (async () => {
 						vaults: true
 					}
 				}
-			}
+			},
+			cacheStrategy: { swr: 60, ttl: 60 }
 		})
 	}
 }) satisfies PageServerLoad
