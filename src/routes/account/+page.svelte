@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>Keepr Account</title>
+	<title>Postr Account</title>
 </svelte:head>
 
 {#if data?.session?.user && data.myKeeps && data.myVaults}

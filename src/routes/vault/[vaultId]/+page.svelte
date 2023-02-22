@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-	<title>Keepr {data.vault?.name}</title>
+	<title>Postr {data.vault?.name}</title>
 </svelte:head>
 
 {#if data.vault}
